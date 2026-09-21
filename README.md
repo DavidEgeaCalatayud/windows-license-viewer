@@ -1,5 +1,7 @@
 # Windows License Viewer
 
+[![.NET build](https://github.com/DavidEgeaCalatayud/windows-license-viewer/actions/workflows/build.yml/badge.svg)](https://github.com/DavidEgeaCalatayud/windows-license-viewer/actions/workflows/build.yml)
+
 Windows License Viewer es una aplicación ligera de escritorio para Windows orientada a tareas de soporte técnico, inventario y documentación administrativa de equipos.
 
 Permite consultar de forma visual información relacionada con la licencia de Windows y datos identificativos del equipo, como el número de serie BIOS o el UUID del dispositivo.
@@ -48,6 +50,17 @@ No debe utilizarse para consultar información de sistemas ajenos sin permiso.
 En equipos con activación digital, licencias OEM, KMS o licencias por volumen, la clave mostrada puede no corresponder a una clave reutilizable real.
 
 La herramienta debe entenderse como apoyo para tareas de soporte, inventario y documentación, no como sistema oficial de auditoría de licencias.
+
+## Build
+
+Requisitos: .NET 8 SDK y Windows.
+
+```powershell
+dotnet restore visualizador_License_Viewer.sln
+dotnet build visualizador_License_Viewer.sln --configuration Release --no-restore
+```
+
+GitHub Actions valida el build en Windows y genera un artefacto `win-x64` framework-dependent mediante `dotnet publish`. Ese artefacto puede servir como base para una futura GitHub Release después de validarlo manualmente; el workflow no publica Releases automáticamente.
 
 ## Estado del proyecto
 

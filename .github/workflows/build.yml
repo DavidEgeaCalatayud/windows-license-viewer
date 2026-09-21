@@ -1,0 +1,38 @@
+name: .NET build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore visualizador_License_Viewer.sln
+
+      - name: Build
+        run: dotnet build visualizador_License_Viewer.sln --configuration Release --no-restore
+
+      - name: Publish Windows artifact
+        run: dotnet publish visualizador_License_Viewer/visualizador_License_Viewer.csproj --configuration Release --runtime win-x64 --self-contained false --output publish
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-license-viewer-win-x64
+          path: publish/
